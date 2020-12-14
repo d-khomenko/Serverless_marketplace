@@ -1,0 +1,208 @@
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  status: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type PrivateNote {
+  id: ID!
+  content: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTaskConnection {
+  items: [Task]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelTaskFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  status: ModelStringInput
+  and: [ModelTaskFilterInput]
+  or: [ModelTaskFilterInput]
+  not: ModelTaskFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getTask(id: ID!): Task
+  listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection
+  getPrivateNote(id: ID!): PrivateNote
+  listPrivateNotes(filter: ModelPrivateNoteFilterInput, limit: Int, nextToken: String): ModelPrivateNoteConnection
+}
+
+input CreateTaskInput {
+  id: ID
+  title: String!
+  description: String
+  status: String
+}
+
+input UpdateTaskInput {
+  id: ID!
+  title: String
+  description: String
+  status: String
+}
+
+input DeleteTaskInput {
+  id: ID
+}
+
+type Mutation {
+  createTask(input: CreateTaskInput!, condition: ModelTaskConditionInput): Task
+  updateTask(input: UpdateTaskInput!, condition: ModelTaskConditionInput): Task
+  deleteTask(input: DeleteTaskInput!, condition: ModelTaskConditionInput): Task
+  createPrivateNote(input: CreatePrivateNoteInput!, condition: ModelPrivateNoteConditionInput): PrivateNote
+  updatePrivateNote(input: UpdatePrivateNoteInput!, condition: ModelPrivateNoteConditionInput): PrivateNote
+  deletePrivateNote(input: DeletePrivateNoteInput!, condition: ModelPrivateNoteConditionInput): PrivateNote
+}
+
+input ModelTaskConditionInput {
+  title: ModelStringInput
+  description: ModelStringInput
+  status: ModelStringInput
+  and: [ModelTaskConditionInput]
+  or: [ModelTaskConditionInput]
+  not: ModelTaskConditionInput
+}
+
+type Subscription {
+  onCreateTask: Task @aws_subscribe(mutations: ["createTask"])
+  onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"])
+  onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"])
+  onCreatePrivateNote(owner: String!): PrivateNote @aws_subscribe(mutations: ["createPrivateNote"])
+  onUpdatePrivateNote(owner: String!): PrivateNote @aws_subscribe(mutations: ["updatePrivateNote"])
+  onDeletePrivateNote(owner: String!): PrivateNote @aws_subscribe(mutations: ["deletePrivateNote"])
+}
+
+type ModelPrivateNoteConnection {
+  items: [PrivateNote]
+  nextToken: String
+}
+
+input ModelPrivateNoteFilterInput {
+  id: ModelIDInput
+  content: ModelStringInput
+  and: [ModelPrivateNoteFilterInput]
+  or: [ModelPrivateNoteFilterInput]
+  not: ModelPrivateNoteFilterInput
+}
+
+input CreatePrivateNoteInput {
+  id: ID
+  content: String!
+}
+
+input UpdatePrivateNoteInput {
+  id: ID!
+  content: String
+}
+
+input DeletePrivateNoteInput {
+  id: ID
+}
+
+input ModelPrivateNoteConditionInput {
+  content: ModelStringInput
+  and: [ModelPrivateNoteConditionInput]
+  or: [ModelPrivateNoteConditionInput]
+  not: ModelPrivateNoteConditionInput
+}
