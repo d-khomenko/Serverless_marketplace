@@ -11,5 +11,53 @@
       "StackId": "arn:aws:cloudformation:eu-central-1:258882753600:stack/amplify-amplifyagora-dev-90345/83ee00b0-3dda-11eb-82a2-0604799e0c2e",
       "AmplifyAppId": "d1mv5vzgzaq65n"
     }
+  },
+  "auth": {
+    "amplifyagora23b833d7": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyagora-dev-90345-deployment/amplify-cfn-templates/auth/amplifyagora23b833d7-cloudformation-template.yml",
+        "logicalId": "authamplifyagora23b833d7"
+      },
+      "lastPushTimeStamp": "2020-12-15T23:07:00.874Z",
+      "output": {
+        "AppClientSecret": "jsma3nn4uogqbmt434lrt6db6n3f1hbkv0nhhin2hjh1rs6tjie",
+        "UserPoolId": "eu-central-1_SFgxOkFUW",
+        "AppClientIDWeb": "2r636u9u5vl45va3tgcjci6b0a",
+        "AppClientID": "3eqrooand6hm4tthvhmqkp7iod",
+        "IdentityPoolId": "eu-central-1:dcef578a-f0a8-4319-95ae-0a57ee34026d",
+        "IdentityPoolName": "amplifyagora23b833d7_identitypool_23b833d7__dev",
+        "UserPoolName": "amplifyagora23b833d7_userpool_23b833d7"
+      },
+      "lastPushDirHash": "NG/KA3/Z0a0jOMvy5AiWkWpEny4="
+    }
+  },
+  "api": {
+    "amplifyagora": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authamplifyagora23b833d7"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "ijhfl4br6ndifcvd2fgawbp2om",
+        "GraphQLAPIEndpointOutput": "https://wvknyu6bwzcuzpyv3kyerfxn6u.appsync-api.eu-central-1.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyagora-dev-90345-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiamplifyagora"
+      },
+      "lastPushTimeStamp": "2020-12-15T23:07:00.874Z",
+      "lastPushDirHash": "rtRCtAwhlEpkiUpgu3pljrLzM3s="
+    }
   }
 }
